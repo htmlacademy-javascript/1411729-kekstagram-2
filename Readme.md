@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Александр Рева](https://up.htmlacademy.ru/javascript-individual/2/user/1411729).
-* Наставник: `Неизвестно`.
+* Наставник: [Анна Лисененкова](https://htmlacademy.ru/profile/ankhena).
 
 ---
 
