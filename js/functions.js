@@ -15,3 +15,16 @@ const checksForPalindrome = function (string) {
 
   return initialString === invertedString;
 };
+
+const extractsNumbers = function (string) {
+  const convertedString = String(string);
+  let extractedNumbers = '';
+
+  for (let index = 0; index <= convertedString.length; index++) {
+    if (parseInt(convertedString[index], 10) || parseInt(convertedString[index], 10) === 0) {
+      extractedNumbers += convertedString[index];
+    }
+  }
+
+  return parseInt(extractedNumbers, 10);
+};
