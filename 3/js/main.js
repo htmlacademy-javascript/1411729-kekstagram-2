@@ -108,16 +108,14 @@ const getRandomMessage = function () {
   return getRandomArrayElement(MESSAGES);
 };
 
-const createComment = () => {
-  let idComment = 0;
+let idComment = 0;
 
-  return {
-    id: idComment++,
-    avatar: getRandomArrayElement(AVATARS_URL),
-    message: getRandomMessage(),
-    name: getRandomArrayElement(NAMES)
-  };
-};
+const createComment = () => ({
+  id: idComment++,
+  avatar: getRandomArrayElement(AVATARS_URL),
+  message: getRandomMessage(),
+  name: getRandomArrayElement(NAMES)
+});
 
 const createPhoto = () => {
   const idPhoto = getRandomInteger(1, 25);
