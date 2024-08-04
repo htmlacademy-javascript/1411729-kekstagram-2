@@ -28,3 +28,7 @@ const extractsNumbers = function (string) {
 
   return parseInt(extractedNumbers, 10);
 };
+
+checksLengthString();
+checksForPalindrome();
+extractsNumbers();
