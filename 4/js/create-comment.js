@@ -1,5 +1,5 @@
 // Модуль вызвращает случайный комментарий содержащий один или два сообщения. Количество сообщений определяется случайным образом
-import {AVATARS_URL, MESSAGES, NAMES} from './data';
+import {AVATARS_URL, MESSAGES, NAMES} from './data.js';
 import {getRandomInteger, getRandomArrayElement} from './randomizers.js';
 
 let idComment = 0;
