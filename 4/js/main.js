@@ -18,4 +18,4 @@ const postPhotos = function (publishedPhotos = [], numberGeneratedPhotos = 25) {
   return publishedPhotos;
 };
 
-postPhotos();
+console.table(postPhotos());
