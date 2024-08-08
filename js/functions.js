@@ -50,8 +50,4 @@ const checksEnoughTime = function (startWorkingDay, endWorkingDay, startMeeting,
   return (timeData[2] >= timeData[0] && (timeData[3] + timeData[2]) <= timeData [1]);
 };
 
-console.log(checksEnoughTime('8:00', '17:30', '14:00', 90)); // true
-console.log(checksEnoughTime('8:0', '10:0', '8:0', 120)); // true
-console.log(checksEnoughTime('08:00', '14:30', '14:00', 90)); // false
-console.log(checksEnoughTime('14:00', '17:30', '08:0', 90)); // false
-console.log(checksEnoughTime('8:00', '17:30', '08:00', 900)); // false
+checksEnoughTime('8:00', '17:30', '14:00', 90);
