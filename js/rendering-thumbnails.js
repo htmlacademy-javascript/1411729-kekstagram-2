@@ -17,4 +17,4 @@ for (let i = 0; i < libraryPhotos.length; i++) {
   fragment.appendChild(thumbnail);
 }
 
-console.log(fragment);
+document.querySelector('.pictures').appendChild(fragment);
