@@ -1,5 +1,5 @@
-import {bigPictureContainer, renderingBigPicture} from './rendering-photo-fullsize';
-import {picturesContainer} from './rendering-thumbnails';
+import {bigPictureContainer, renderingBigPicture} from './rendering-photo-fullsize.js';
+import {picturesContainer} from './rendering-thumbnails.js';
 
 const bigPictureCloseButton = bigPictureContainer.querySelector('button[type="reset"]');
 const pageContent = document.querySelector('body');
