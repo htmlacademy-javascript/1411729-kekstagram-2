@@ -2,20 +2,36 @@ import {bigPictureContainer, renderingBigPicture} from './rendering-photo-fullsi
 import {picturesContainer} from './rendering-thumbnails';
 
 const bigPictureCloseButton = bigPictureContainer.querySelector('button[type="reset"]');
+const pageContent = document.querySelector('body');
 
-picturesContainer.addEventListener('click', (evt) => {
+const onDocumentKeydown = (evt) => {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    closePhotoModal();
+  }
+};
+
+const openPhotoModal = (evt) => {
   if (evt.target.classList.value === 'picture__img') {
-    document.querySelector('body').classList.add('modal-open');
+    pageContent.classList.add('modal-open');
 
     bigPictureContainer.classList.remove('hidden');
     bigPictureContainer.querySelector('.social__comment-count').classList.add('hidden');
     bigPictureContainer.querySelector('.comments-loader').classList.add('hidden');
 
-    bigPictureCloseButton.addEventListener('click', () => {
-      document.querySelector('body').classList.remove('modal-open');
-      bigPictureContainer.classList.add('hidden');
-    });
-
     renderingBigPicture(evt);
+
+    document.addEventListener('keydown', onDocumentKeydown);
   }
-});
+};
+
+function closePhotoModal () {
+  pageContent.classList.remove('modal-open');
+  bigPictureContainer.classList.add('hidden');
+
+  document.removeEventListener('keydown', onDocumentKeydown);
+}
+
+picturesContainer.addEventListener('click', openPhotoModal);
+
+bigPictureCloseButton.addEventListener('click', closePhotoModal);
