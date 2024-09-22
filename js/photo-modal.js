@@ -1,8 +1,9 @@
 import {bigPictureContainer, renderingBigPicture} from './rendering-photo-fullsize';
+import {picturesContainer} from './rendering-thumbnails';
 
 const bigPictureCloseButton = bigPictureContainer.querySelector('button[type="reset"]');
 
-document.querySelector('.pictures').addEventListener('click', (evt) => {
+picturesContainer.addEventListener('click', (evt) => {
   if (evt.target.classList.value === 'picture__img') {
     document.querySelector('body').classList.add('modal-open');
 
