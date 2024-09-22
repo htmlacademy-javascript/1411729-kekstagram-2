@@ -19,4 +19,4 @@ for (let i = 0; i < libraryPhotos.length; i++) {
 }
 
 picturesContainer.appendChild(fragment);
-export{picturesContainer};
+export {picturesContainer};
