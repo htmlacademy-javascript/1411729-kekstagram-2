@@ -12,26 +12,24 @@ const socialCommentsList = bigPictureContainer.querySelector('.social__comments'
 
 const renderingBigPicture = (evt) => {
   // Наполнение данными о конкретной фотографии
-  const parentElement = evt.target.parentElement;
-
-  bigPictureUrl.children[0].src = evt.target.src;
-  quantityLikes.textContent = parentElement.querySelector('.picture__likes').textContent;
-  bigPictureDescription.textContent = evt.target.alt;
-
-  quantityComentsShown.textContent = '5';
-  quantityComentsAll.textContent = parentElement.querySelector('.picture__comments').textContent;
-
-  // Создание списка комментариев
+  const urlTargetPhoto = evt.target.getAttribute('src') || evt.target.firstElementChild.getAttribute('src');
   let commentsData;
 
-  const commentsTemplate = document.querySelector('.social__comment');
-  const fragment = document.createDocumentFragment();
-
   for (let i = 0; i < libraryPhotos.length; i++) {
-    if (evt.target.getAttribute('src') === libraryPhotos[i].url) {
+    if (urlTargetPhoto === libraryPhotos[i].url) {
+      bigPictureUrl.children[0].src = libraryPhotos[i].url;
+      bigPictureDescription.textContent = libraryPhotos[i].description;
+      quantityLikes.textContent = libraryPhotos[i].likes;
       commentsData = libraryPhotos[i].comments;
+      quantityComentsAll.textContent = commentsData.length;
     }
   }
+
+  quantityComentsShown.textContent = '5';
+
+  // Создание списка комментариев
+  const commentsTemplate = document.querySelector('.social__comment');
+  const fragment = document.createDocumentFragment();
 
   for (let i = 0; i < commentsData.length; i++) {
     const comment = commentsTemplate.cloneNode(true);

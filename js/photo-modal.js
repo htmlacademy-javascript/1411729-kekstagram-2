@@ -12,10 +12,10 @@ const onDocumentKeydown = (evt) => {
 };
 
 const openPhotoModal = (evt) => {
-  if (evt.target.classList.value === 'picture__img') {
+  if (evt.target.tagName === 'IMG' || evt.target.tagName === 'A') {
     pageContent.classList.add('modal-open');
-
     bigPictureContainer.classList.remove('hidden');
+
     bigPictureContainer.querySelector('.social__comment-count').classList.add('hidden');
     bigPictureContainer.querySelector('.comments-loader').classList.add('hidden');
 
