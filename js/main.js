@@ -1,2 +1,2 @@
 import './rendering-thumbnails.js';
-import './photo-fullsize-view.js';
+import './photo-modal.js';
