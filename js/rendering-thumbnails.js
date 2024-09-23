@@ -1,5 +1,6 @@
 import {libraryPhotos} from './data.js';
 
+const picturesContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
@@ -17,4 +18,5 @@ for (let i = 0; i < libraryPhotos.length; i++) {
   fragment.appendChild(thumbnail);
 }
 
-document.querySelector('.pictures').appendChild(fragment);
+picturesContainer.appendChild(fragment);
+export {picturesContainer};
