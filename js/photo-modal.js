@@ -1,6 +1,6 @@
 import {bigPictureContainer, renderingBigPicture} from './rendering-photo-fullsize.js';
 import {picturesContainer} from './rendering-thumbnails.js';
-import {isEscapeKey} from './utils.js';
+import {isEscapeKey, getParent} from './utils.js';
 
 const bigPictureCloseButton = bigPictureContainer.querySelector('button[type="reset"]');
 const pageContent = document.querySelector('body');
@@ -13,14 +13,15 @@ const onDocumentKeydown = (evt) => {
 };
 
 const openPhotoModal = (evt) => {
-  if (evt.target.tagName === 'IMG' || evt.target.tagName === 'A') {
+  if (evt.target.matches('[class*=\'picture\']:not(.pictures)')) {
+    evt.preventDefault();
     pageContent.classList.add('modal-open');
     bigPictureContainer.classList.remove('hidden');
 
     bigPictureContainer.querySelector('.social__comment-count').classList.add('hidden');
     bigPictureContainer.querySelector('.comments-loader').classList.add('hidden');
 
-    renderingBigPicture(evt);
+    renderingBigPicture(getParent(evt.target).firstElementChild);
 
     document.addEventListener('keydown', onDocumentKeydown);
   }

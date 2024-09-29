@@ -1,4 +1,5 @@
 import {libraryPhotos} from './data.js';
+import {createCommentTemplate} from './utils.js';
 
 const bigPictureContainer = document.querySelector('.big-picture');
 
@@ -10,15 +11,16 @@ const quantityComentsShown = bigPictureContainer.querySelector('.social__comment
 const quantityComentsAll = bigPictureContainer.querySelector('.social__comment-total-count');
 const socialCommentsList = bigPictureContainer.querySelector('.social__comments');
 
-const renderingBigPicture = (evt) => {
-  // Наполнение данными о конкретной фотографии
-  const urlTargetPhoto = evt.target.getAttribute('src') || evt.target.firstElementChild.getAttribute('src');
+const renderingBigPicture = (imageElement) => {
+  const urlTargetPhoto = imageElement.getAttribute('src');
   let commentsData;
+
+  // Наполнение данными о конкретной фотографии
+  bigPictureUrl.children[0].src = imageElement.getAttribute('src');
+  bigPictureDescription.textContent = imageElement.getAttribute('alt');
 
   for (let i = 0; i < libraryPhotos.length; i++) {
     if (urlTargetPhoto === libraryPhotos[i].url) {
-      bigPictureUrl.children[0].src = libraryPhotos[i].url;
-      bigPictureDescription.textContent = libraryPhotos[i].description;
       quantityLikes.textContent = libraryPhotos[i].likes;
       commentsData = libraryPhotos[i].comments;
       quantityComentsAll.textContent = commentsData.length;
@@ -28,11 +30,11 @@ const renderingBigPicture = (evt) => {
   quantityComentsShown.textContent = '5';
 
   // Создание списка комментариев
-  const commentsTemplate = document.querySelector('.social__comment');
+  const commentTemplate = createCommentTemplate();
   const fragment = document.createDocumentFragment();
 
   for (let i = 0; i < commentsData.length; i++) {
-    const comment = commentsTemplate.cloneNode(true);
+    const comment = commentTemplate.cloneNode(true);
 
     comment.querySelector('.social__picture').src = commentsData[i].avatar;
     comment.querySelector('.social__picture').alt = commentsData[i].name;

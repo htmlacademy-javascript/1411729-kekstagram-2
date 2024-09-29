@@ -12,4 +12,35 @@ const getRandomArrayElement = (elements) => elements[getRandomInteger(0, element
 // Функция распознования нажатия клавиши <Escape>
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomInteger, getRandomArrayElement, isEscapeKey};
+// Функция перебора элементов для поиска указанного родителя по классу
+function getParent(element) {
+  while (element) {
+    if (element.className === 'picture') {
+      return element;
+    }
+    element = element.parentElement;
+  }
+  return null;
+}
+
+// Функция создания шаблона комментария
+const createCommentTemplate = () => {
+  const singleComment = document.createElement('li');
+  const userAvatar = document.createElement('img');
+  const userComment = document.createElement('p');
+
+  singleComment.classList.add('social__comment');
+  userAvatar.classList.add('social__picture');
+  userComment.classList.add('social__text');
+
+  userAvatar.src = '#';
+  userAvatar.alt = 'Имя комментатора';
+  userAvatar.width = 35;
+  userAvatar.height = 35;
+  userComment.textContent = '';
+
+  singleComment.append(userAvatar, userComment);
+  return singleComment;
+};
+
+export {getRandomInteger, getRandomArrayElement, isEscapeKey, getParent, createCommentTemplate};
