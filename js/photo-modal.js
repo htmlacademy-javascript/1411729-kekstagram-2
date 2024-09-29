@@ -1,11 +1,12 @@
 import {bigPictureContainer, renderingBigPicture} from './rendering-photo-fullsize.js';
 import {picturesContainer} from './rendering-thumbnails.js';
+import {isEscapeKey} from './utils.js';
 
 const bigPictureCloseButton = bigPictureContainer.querySelector('button[type="reset"]');
 const pageContent = document.querySelector('body');
 
 const onDocumentKeydown = (evt) => {
-  if (evt.key === 'Escape') {
+  if (isEscapeKey(evt)) {
     evt.preventDefault();
     closePhotoModal();
   }

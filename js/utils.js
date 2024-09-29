@@ -9,4 +9,7 @@ const getRandomInteger = (a, b) => {
 // Функция для получения случайного элемента из проекта "Код и Магия"
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-export {getRandomInteger, getRandomArrayElement};
+// Функция распознования нажатия клавиши <Escape>
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomInteger, getRandomArrayElement, isEscapeKey};
