@@ -8,7 +8,7 @@ const quantityLikes = bigPictureContainer.querySelector('.likes-count');
 const bigPictureDescription = bigPictureContainer.querySelector('.social__caption');
 
 const comentsShown = bigPictureContainer.querySelector('.social__comment-shown-count');
-let quantityComentsShown = 5;
+const quantityComentsShown = 5;
 const quantityComentsAll = bigPictureContainer.querySelector('.social__comment-total-count');
 const socialCommentsList = bigPictureContainer.querySelector('.social__comments');
 
@@ -27,9 +27,6 @@ const renderingBigPicture = (imageElement) => {
     }
   }
 
-  comentsShown.textContent = quantityComentsShown;
-  quantityComentsAll.textContent = commentsData.length;
-
   // Создание списка комментариев
   const commentTemplate = createCommentTemplate();
   const fragment = document.createDocumentFragment();
@@ -47,6 +44,11 @@ const renderingBigPicture = (imageElement) => {
 
     fragment.appendChild(comment);
   }
+
+  quantityComentsAll.textContent = commentsData.length;
+  comentsShown.textContent = commentsData.length <= quantityComentsShown ?
+    commentsData.length :
+    quantityComentsShown;
 
   socialCommentsList.innerHTML = '';
   socialCommentsList.appendChild(fragment);
