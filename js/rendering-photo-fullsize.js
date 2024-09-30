@@ -7,7 +7,8 @@ const bigPictureUrl = bigPictureContainer.querySelector('.big-picture__img');
 const quantityLikes = bigPictureContainer.querySelector('.likes-count');
 const bigPictureDescription = bigPictureContainer.querySelector('.social__caption');
 
-const quantityComentsShown = bigPictureContainer.querySelector('.social__comment-shown-count');
+const comentsShown = bigPictureContainer.querySelector('.social__comment-shown-count');
+let quantityComentsShown = 5;
 const quantityComentsAll = bigPictureContainer.querySelector('.social__comment-total-count');
 const socialCommentsList = bigPictureContainer.querySelector('.social__comments');
 
@@ -23,11 +24,11 @@ const renderingBigPicture = (imageElement) => {
     if (urlTargetPhoto === libraryPhotos[i].url) {
       quantityLikes.textContent = libraryPhotos[i].likes;
       commentsData = libraryPhotos[i].comments;
-      quantityComentsAll.textContent = commentsData.length;
     }
   }
 
-  quantityComentsShown.textContent = '5';
+  comentsShown.textContent = quantityComentsShown;
+  quantityComentsAll.textContent = commentsData.length;
 
   // Создание списка комментариев
   const commentTemplate = createCommentTemplate();
@@ -39,6 +40,10 @@ const renderingBigPicture = (imageElement) => {
     comment.querySelector('.social__picture').src = commentsData[i].avatar;
     comment.querySelector('.social__picture').alt = commentsData[i].name;
     comment.querySelector('.social__text').textContent = commentsData[i].message;
+
+    if (i > (quantityComentsShown - 1)) {
+      comment.classList.add('hidden');
+    }
 
     fragment.appendChild(comment);
   }
