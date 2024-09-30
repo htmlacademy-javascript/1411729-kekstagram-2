@@ -11,6 +11,7 @@ const comentsShown = bigPictureContainer.querySelector('.social__comment-shown-c
 const quantityComentsShown = 5;
 const quantityComentsAll = bigPictureContainer.querySelector('.social__comment-total-count');
 const socialCommentsList = bigPictureContainer.querySelector('.social__comments');
+const buttonMoreComments = bigPictureContainer.querySelector('.comments-loader');
 
 const renderingBigPicture = (imageElement) => {
   const urlTargetPhoto = imageElement.getAttribute('src');
@@ -46,9 +47,13 @@ const renderingBigPicture = (imageElement) => {
   }
 
   quantityComentsAll.textContent = commentsData.length;
-  comentsShown.textContent = commentsData.length <= quantityComentsShown ?
-    commentsData.length :
-    quantityComentsShown;
+  if (commentsData.length <= quantityComentsShown) {
+    comentsShown.textContent = commentsData.length;
+    buttonMoreComments.classList.add('hidden');
+  } else {
+    comentsShown.textContent = quantityComentsShown;
+    buttonMoreComments.classList.remove('hidden');
+  }
 
   socialCommentsList.innerHTML = '';
   socialCommentsList.appendChild(fragment);
