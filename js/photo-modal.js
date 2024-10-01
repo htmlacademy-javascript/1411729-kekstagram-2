@@ -1,4 +1,8 @@
-import {bigPictureContainer, renderingBigPicture, buttonMoreComments} from './rendering-photo-fullsize.js';
+import {bigPictureContainer,
+  renderingBigPicture,
+  buttonMoreComments,
+  socialCommentsList,
+  comentsShown} from './rendering-photo-fullsize.js';
 import {picturesContainer} from './rendering-thumbnails.js';
 import {isEscapeKey, getParent} from './utils.js';
 
@@ -12,7 +16,26 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-const showsMoreComments = () => {};
+const showsMoreComments = () => {
+  const quantityComentsAll = socialCommentsList.childNodes;
+  let count = 0;
+
+  for (let i = Number(comentsShown.textContent); i < quantityComentsAll.length; i++) {
+    if (quantityComentsAll[i].classList.contains('hidden')) {
+      quantityComentsAll[i].classList.remove('hidden');
+      count++;
+      comentsShown.textContent++;
+    }
+
+    if (i === quantityComentsAll.length - 1) {
+      buttonMoreComments.classList.add('hidden');
+    }
+
+    if (count === 5) {
+      break;
+    }
+  }
+};
 
 const openPhotoModal = (evt) => {
   if (evt.target.matches('[class*=\'picture\']:not(.pictures)')) {
