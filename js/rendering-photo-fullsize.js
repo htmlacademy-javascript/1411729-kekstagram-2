@@ -59,4 +59,4 @@ const renderingBigPicture = (imageElement) => {
   socialCommentsList.appendChild(fragment);
 };
 
-export{bigPictureContainer, renderingBigPicture};
+export{bigPictureContainer, renderingBigPicture, buttonMoreComments};

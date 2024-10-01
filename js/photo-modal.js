@@ -1,4 +1,4 @@
-import {bigPictureContainer, renderingBigPicture} from './rendering-photo-fullsize.js';
+import {bigPictureContainer, renderingBigPicture, buttonMoreComments} from './rendering-photo-fullsize.js';
 import {picturesContainer} from './rendering-thumbnails.js';
 import {isEscapeKey, getParent} from './utils.js';
 
@@ -12,6 +12,8 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
+const showsMoreComments = () => {};
+
 const openPhotoModal = (evt) => {
   if (evt.target.matches('[class*=\'picture\']:not(.pictures)')) {
     evt.preventDefault();
@@ -20,6 +22,9 @@ const openPhotoModal = (evt) => {
 
     renderingBigPicture(getParent(evt.target).firstElementChild);
 
+    if (!buttonMoreComments.classList.contains('hidden')) {
+      buttonMoreComments.addEventListener('click', showsMoreComments);
+    }
     document.addEventListener('keydown', onDocumentKeydown);
   }
 };
