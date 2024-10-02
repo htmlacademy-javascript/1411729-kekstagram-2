@@ -81,7 +81,7 @@ const NAMES = [
   'Шинкарёв'
 ];
 
-import {getRandomInteger, getRandomArrayElement} from './randomizers.js';
+import {getRandomInteger, getRandomArrayElement} from './utils.js';
 
 // Создание одной фотографии с комментариями
 let idComment = 0;
