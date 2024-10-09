@@ -32,3 +32,5 @@ function closeImageEditor() {
 imageUploadElement.addEventListener('change', openImageEditor);
 
 imageEditorCloseButton.addEventListener('click', closeImageEditor);
+
+export {imageUploadElement};
