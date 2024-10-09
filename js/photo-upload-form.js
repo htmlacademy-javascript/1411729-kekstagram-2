@@ -8,20 +8,20 @@ const imageEditorCloseButton = imageUploadElement.querySelector('button[type="re
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closePhotoModal();
+    closeImageEditor();
   }
 };
 
 setupFormForSubmit(imageUploadElement);
 
-function openPhotoModal() {
+function openImageEditor() {
   pageContent.classList.add('modal-open');
   imageEditorModal.classList.remove('hidden');
 
   document.addEventListener('keydown', onDocumentKeydown);
 }
 
-function closePhotoModal() {
+function closeImageEditor() {
   pageContent.classList.remove('modal-open');
   imageEditorModal.classList.add('hidden');
   imageUploadElement.reset();
@@ -29,6 +29,6 @@ function closePhotoModal() {
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
-imageUploadElement.addEventListener('change', openPhotoModal);
+imageUploadElement.addEventListener('change', openImageEditor);
 
-imageEditorCloseButton.addEventListener('click', closePhotoModal);
+imageEditorCloseButton.addEventListener('click', closeImageEditor);
