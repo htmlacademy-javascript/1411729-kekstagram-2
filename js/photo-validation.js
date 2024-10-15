@@ -1,36 +1,63 @@
 import {imageUploadElement} from './photo-upload-form';
 
-const pristine = new Pristine(imageUploadElement);
-const isPhotoHashtagsValid = () => {
-  const userImageHashtags = imageUploadElement.querySelector('.text__hashtags');
-  const hashtagsCollection = userImageHashtags.value.split(' ');
-  const hashtagTemplate = /^#[a-zф-яё0-9]{1,19}$/i;
+const pristine = new Pristine(imageUploadElement, {
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextTag: 'div',
+  errorTextClass: 'img-upload__field-wrapper--error'
+});
 
-  if (!userImageHashtags.value) {
+const userImageHashtags = imageUploadElement.querySelector('.text__hashtags');
+const userImageDescription = imageUploadElement.querySelector('.text__description');
+
+function checksCountTags (value) {
+  return value.split(' ').length <= 5;
+}
+
+function checksUniquenessTags (value) {
+  return (new Set(value.split(' '))).size === value.split(' ').length;
+}
+
+function checksValidityTag (value) {
+  const hashtagTemplate = /^#[a-zа-яё0-9]{1,19}$/i;
+
+  if (!value) {
     return true;
   }
 
-  if (hashtagsCollection.length > 5) {
-    return false;
-  }
+  return value.trim().split(' ').every((tag) => hashtagTemplate.test(tag));
+}
 
-  if ((new Set(hashtagsCollection)).size !== hashtagsCollection.length) {
-    return false;
-  }
+function checksLengthDescription (value) {
+  return value.length <= 140;
+}
 
-  return hashtagsCollection.every((tag) => hashtagTemplate.test(tag));
-};
+pristine.addValidator(
+  userImageHashtags,
+  checksCountTags,
+  'Превышено количество хэштегов'
+);
 
-imageUploadElement
-  .querySelector('textarea[name="description"]')
-  .setAttribute('maxlength', 140);
+pristine.addValidator(
+  userImageHashtags,
+  checksUniquenessTags,
+  'Хэштеги повторяются'
+);
+
+pristine.addValidator(
+  userImageHashtags,
+  checksValidityTag,
+  'Введён невалидный хэштег'
+);
+
+pristine.addValidator(
+  userImageDescription,
+  checksLengthDescription,
+  'Длина комментария больше 140 символов'
+);
 
 imageUploadElement.addEventListener('submit', (evt) => {
   if (!pristine.validate()) {
-    evt.preventDefault();
-  }
-
-  if (!isPhotoHashtagsValid()) {
     evt.preventDefault();
   }
 });
