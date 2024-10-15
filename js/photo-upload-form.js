@@ -6,7 +6,10 @@ const imageEditorModal = imageUploadElement.querySelector('.img-upload__overlay'
 const imageEditorCloseButton = imageUploadElement.querySelector('button[type="reset"]');
 
 const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt) && (document.activeElement.type !== 'textarea')) {
+  if (document.activeElement.name === 'hashtags' ||
+    document.activeElement.name === 'description') {
+    return evt;
+  } else if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeImageEditor();
   }
