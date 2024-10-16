@@ -1,4 +1,4 @@
-import {imageUploadElement} from './photo-upload-form';
+import {imageUploadElement} from './photo-upload-form.js';
 
 const pristine = new Pristine(imageUploadElement, {
   classTo: 'img-upload__field-wrapper',
