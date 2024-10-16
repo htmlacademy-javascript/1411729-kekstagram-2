@@ -62,3 +62,5 @@ function closePhotoModal () {
 picturesContainer.addEventListener('click', openPhotoModal);
 
 bigPictureCloseButton.addEventListener('click', closePhotoModal);
+
+export {pageContent};

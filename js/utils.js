@@ -43,4 +43,16 @@ const createCommentTemplate = () => {
   return singleComment;
 };
 
-export {getRandomInteger, getRandomArrayElement, isEscapeKey, getParent, createCommentTemplate};
+// Функция для присваивания нужных значений для атрибутов формы
+const setupFormForSubmit = (form) => {
+  form.method = 'POST';
+  form.enctype = 'multipart/form-data';
+  form.action = ' https://31.javascript.htmlacademy.pro/kekstagram';
+};
+
+export {getRandomInteger,
+  getRandomArrayElement,
+  isEscapeKey,
+  getParent,
+  createCommentTemplate,
+  setupFormForSubmit};
