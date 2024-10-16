@@ -1,5 +1,5 @@
 import {isEscapeKey, setupFormForSubmit} from './utils.js';
-import {pageContent} from './photo-modal';
+import {pageContent} from './photo-modal.js';
 
 const imageUploadElement = document.querySelector('.img-upload__form');
 const imageEditorModal = imageUploadElement.querySelector('.img-upload__overlay');
