@@ -5,6 +5,7 @@ import {bigPictureContainer,
   comentsShown} from './rendering-photo-fullsize.js';
 import {picturesContainer} from './rendering-thumbnails.js';
 import {isEscapeKey, getParent} from './utils.js';
+import {getData} from './api.js';
 
 const bigPictureCloseButton = bigPictureContainer.querySelector('button[type="reset"]');
 const pageContent = document.querySelector('body');
@@ -43,7 +44,8 @@ const openPhotoModal = (evt) => {
     pageContent.classList.add('modal-open');
     bigPictureContainer.classList.remove('hidden');
 
-    renderingBigPicture(getParent(evt.target).firstElementChild);
+    getData()
+      .then((photos) => renderingBigPicture(getParent(evt.target).firstElementChild, photos));
 
     if (!buttonMoreComments.classList.contains('hidden')) {
       buttonMoreComments.addEventListener('click', showsMoreComments);

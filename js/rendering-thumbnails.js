@@ -1,4 +1,4 @@
-import {libraryPhotos} from './data.js';
+import {getData} from './api.js';
 
 const picturesContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture')
@@ -22,6 +22,7 @@ const rendersThumbnails = (arrayPhotos) => {
   picturesContainer.appendChild(fragment);
 };
 
-rendersThumbnails(libraryPhotos);
+getData()
+  .then((photos) => rendersThumbnails(photos));
 
 export {picturesContainer};
