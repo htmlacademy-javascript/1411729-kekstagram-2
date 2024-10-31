@@ -43,6 +43,25 @@ const createCommentTemplate = () => {
   return singleComment;
 };
 
+// Функция создания шаблона сообщения «Ошибки загрузки»
+const createErrTemplateDataLoad = (errorText) => {
+  const errorMessage = document
+    .querySelector('#data-error')
+    .content
+    .querySelector('.data-error')
+    .cloneNode(true);
+
+  errorMessage
+    .querySelector('.data-error__title')
+    .textContent = errorText;
+
+  document.body.appendChild(errorMessage);
+
+  setTimeout(() => {
+    document.querySelector('.data-error').remove();
+  }, 5000);
+};
+
 // Функция для присваивания нужных значений для атрибутов формы
 const setupFormForSubmit = (form) => {
   form.method = 'POST';
@@ -55,4 +74,5 @@ export {getRandomInteger,
   isEscapeKey,
   getParent,
   createCommentTemplate,
+  createErrTemplateDataLoad,
   setupFormForSubmit};

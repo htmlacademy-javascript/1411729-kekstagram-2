@@ -1,3 +1,5 @@
+import {createErrTemplateDataLoad} from './utils.js';
+
 const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram/data';
 const Route = {
   GET_DATA: '/',
@@ -17,7 +19,7 @@ const getData = () => fetch(
     return response.json();
   })
   .catch(() => {
-    throw new Error(ErrorText.GET_DATA);
+    createErrTemplateDataLoad(ErrorText.GET_DATA);
   });
 
 export {getData};
