@@ -54,4 +54,5 @@ imageEditorCloseButton.addEventListener('click', closeImageEditor);
 export {imageUploadElement,
   sliderField,
   sliderElement,
-  image};
+  image,
+  closeImageEditor};

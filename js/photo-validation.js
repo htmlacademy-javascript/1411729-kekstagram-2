@@ -1,4 +1,6 @@
-import {imageUploadElement} from './photo-upload-form.js';
+import {imageUploadElement, closeImageEditor} from './photo-upload-form.js';
+import {createErrTemplateDataLoad} from './utils.js';
+import {sendData} from './api.js';
 
 const pristine = new Pristine(imageUploadElement, {
   classTo: 'img-upload__field-wrapper',
@@ -56,8 +58,32 @@ pristine.addValidator(
   'Длина комментария больше 140 символов'
 );
 
+// ----------------------------------------------------
+const submitButton = imageUploadElement.querySelector('button[type="submit"]');
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Публикую';
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
 imageUploadElement.addEventListener('submit', (evt) => {
-  if (!pristine.validate()) {
-    evt.preventDefault();
+  evt.preventDefault();
+
+  if (pristine.validate()) {
+    blockSubmitButton();
+
+    sendData(new FormData(evt.target))
+      .then(closeImageEditor())
+      .catch(
+        (err) => {
+          createErrTemplateDataLoad(err.message);
+        }
+      )
+      .finally(unblockSubmitButton);
   }
 });
