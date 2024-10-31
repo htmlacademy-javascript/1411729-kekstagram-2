@@ -1,5 +1,4 @@
-import {libraryPhotos} from './data.js';
-import {createCommentTemplate} from './utils.js';
+import {createCommentTemplate, getParent} from './utils.js';
 
 const bigPictureContainer = document.querySelector('.big-picture');
 
@@ -13,38 +12,36 @@ const quantityComentsAll = bigPictureContainer.querySelector('.social__comment-t
 const socialCommentsList = bigPictureContainer.querySelector('.social__comments');
 const buttonMoreComments = bigPictureContainer.querySelector('.comments-loader');
 
-const renderingBigPicture = (imageElement) => {
+const renderingBigPicture = (imageElement, photos) => {
   const urlTargetPhoto = imageElement.getAttribute('src');
   let commentsData;
 
   // Наполнение данными о конкретной фотографии
   bigPictureUrl.children[0].src = imageElement.getAttribute('src');
   bigPictureDescription.textContent = imageElement.getAttribute('alt');
-
-  for (let i = 0; i < libraryPhotos.length; i++) {
-    if (urlTargetPhoto === libraryPhotos[i].url) {
-      quantityLikes.textContent = libraryPhotos[i].likes;
-      commentsData = libraryPhotos[i].comments;
-    }
-  }
+  quantityLikes.textContent = getParent(imageElement).querySelector('.picture__likes').textContent;
 
   // Создание списка комментариев
   const commentTemplate = createCommentTemplate();
   const fragment = document.createDocumentFragment();
+  photos.forEach((photo) => {
+    if (urlTargetPhoto === photo.url) {
+      commentsData = photo.comments;
+    }
+  });
 
-  for (let i = 0; i < commentsData.length; i++) {
+  commentsData.forEach((commentData, commentIndex) => {
     const comment = commentTemplate.cloneNode(true);
+    comment.querySelector('.social__picture').src = commentData.avatar;
+    comment.querySelector('.social__picture').alt = commentData.name;
+    comment.querySelector('.social__text').textContent = commentData.message;
 
-    comment.querySelector('.social__picture').src = commentsData[i].avatar;
-    comment.querySelector('.social__picture').alt = commentsData[i].name;
-    comment.querySelector('.social__text').textContent = commentsData[i].message;
-
-    if (i > (quantityComentsShown - 1)) {
+    if (commentIndex > (quantityComentsShown - 1)) {
       comment.classList.add('hidden');
     }
 
     fragment.appendChild(comment);
-  }
+  });
 
   quantityComentsAll.textContent = commentsData.length;
   if (commentsData.length <= quantityComentsShown) {

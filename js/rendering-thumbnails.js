@@ -1,22 +1,28 @@
-import {libraryPhotos} from './data.js';
+import {getData} from './api.js';
 
 const picturesContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
 
-const fragment = document.createDocumentFragment();
+const rendersThumbnails = (arrayPhotos) => {
+  const fragment = document.createDocumentFragment();
 
-for (let i = 0; i < libraryPhotos.length; i++) {
-  const thumbnail = pictureTemplate.cloneNode(true);
+  arrayPhotos.forEach((photo) => {
+    const thumbnail = pictureTemplate.cloneNode(true);
 
-  thumbnail.querySelector('.picture__img').src = libraryPhotos[i].url;
-  thumbnail.querySelector('.picture__img').alt = libraryPhotos[i].description;
-  thumbnail.querySelector('.picture__comments').textContent = libraryPhotos[i].comments.length;
-  thumbnail.querySelector('.picture__likes').textContent = libraryPhotos[i].likes;
+    thumbnail.querySelector('.picture__img').src = photo.url;
+    thumbnail.querySelector('.picture__img').alt = photo.description;
+    thumbnail.querySelector('.picture__comments').textContent = photo.comments.length;
+    thumbnail.querySelector('.picture__likes').textContent = photo.likes;
 
-  fragment.appendChild(thumbnail);
-}
+    fragment.appendChild(thumbnail);
+  });
 
-picturesContainer.appendChild(fragment);
+  picturesContainer.appendChild(fragment);
+};
+
+getData()
+  .then((photos) => rendersThumbnails(photos));
+
 export {picturesContainer};
