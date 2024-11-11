@@ -1,12 +1,11 @@
 import {getData} from './api.js';
+import {removeChildrenByClass, getImagesRandomSet} from './utils.js';
 import {picturesContainer, rendersThumbnails} from './rendering-thumbnails.js';
 
 const filtersBar = document.querySelector('.img-filters');
 const filtersButtons = filtersBar.querySelector('.img-filters__form');
 
 filtersButtons.addEventListener('click', (evt) => {
-  const picturesSet = picturesContainer.querySelectorAll('.picture');
-
   Array.from(filtersButtons).forEach((button) => {
     button.classList.remove('img-filters__button--active');
 
@@ -15,13 +14,14 @@ filtersButtons.addEventListener('click', (evt) => {
     }
   });
 
+  removeChildrenByClass(picturesContainer, '.picture');
+
   switch (evt.target.id) {
     case 'filter-random':
-      console.log('Random');
+      getData()
+        .then((photos) => rendersThumbnails(getImagesRandomSet(photos, 10)));
       break;
     case 'filter-discussed':
-      picturesSet.forEach((picture) => picture.remove());
-
       getData()
         .then((photos) => {
           rendersThumbnails(photos
@@ -30,8 +30,6 @@ filtersButtons.addEventListener('click', (evt) => {
         });
       break;
     default:
-      picturesSet.forEach((picture) => picture.remove());
-
       getData()
         .then((photos) => {
           rendersThumbnails(photos);
