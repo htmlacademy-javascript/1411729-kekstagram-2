@@ -29,4 +29,4 @@ getData()
     filtersBar.classList.remove('img-filters--inactive');
   });
 
-export {picturesContainer};
+export {picturesContainer, rendersThumbnails};
