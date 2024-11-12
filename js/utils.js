@@ -91,6 +91,14 @@ const getImagesRandomSet = (arrayPhotos, count = 0) => {
   return imagesRandomSet;
 };
 
+// Функция debounce для устранения дребезга от Кекса
+let timeoutId;
+const debounce = (callback, timeoutDelay) =>
+  (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+
 export {getRandomInteger,
   getRandomArrayElement,
   isEscapeKey,
@@ -99,4 +107,5 @@ export {getRandomInteger,
   createErrTemplateDataLoad,
   setupFormForSubmit,
   removeChildrenByClass,
-  getImagesRandomSet};
+  getImagesRandomSet,
+  debounce};

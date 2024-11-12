@@ -1,41 +1,44 @@
-import {getData} from './api.js';
-import {removeChildrenByClass, getImagesRandomSet} from './utils.js';
+import {removeChildrenByClass, getImagesRandomSet, debounce} from './utils.js';
 import {picturesContainer, rendersThumbnails} from './rendering-thumbnails.js';
 
+const RERENDER_DELAY = 500;
 const filtersBar = document.querySelector('.img-filters');
 const filtersButtons = filtersBar.querySelector('.img-filters__form');
 
-filtersButtons.addEventListener('click', (evt) => {
-  Array.from(filtersButtons).forEach((button) => {
-    button.classList.remove('img-filters__button--active');
+const filterButtonClick = (...photos) => {
+  filtersButtons.addEventListener('click', (evt) => {
+    Array.from(filtersButtons).forEach((button) => {
+      button.classList.remove('img-filters__button--active');
 
-    if (button.id === evt.target.id) {
-      button.classList.add('img-filters__button--active');
+      if (button.id === evt.target.id) {
+        button.classList.add('img-filters__button--active');
+      }
+    });
+
+    removeChildrenByClass(picturesContainer, '.picture');
+    let photosCustomSet = [];
+
+    switch (evt.target.id) {
+      case 'filter-random':
+        photosCustomSet = getImagesRandomSet(photos, 10);
+        break;
+
+      case 'filter-discussed':
+        photosCustomSet = photos
+          .slice()
+          .sort((a, b) => b.comments.length - a.comments.length);
+        break;
+
+      default:
+        photosCustomSet = photos;
+        break;
     }
+
+    (debounce(
+      () => rendersThumbnails(photosCustomSet),
+      RERENDER_DELAY
+    ))();
   });
+};
 
-  removeChildrenByClass(picturesContainer, '.picture');
-
-  switch (evt.target.id) {
-    case 'filter-random':
-      getData()
-        .then((photos) => rendersThumbnails(getImagesRandomSet(photos, 10)));
-      break;
-    case 'filter-discussed':
-      getData()
-        .then((photos) => {
-          rendersThumbnails(photos
-            .slice()
-            .sort((a, b) => b.comments.length - a.comments.length));
-        });
-      break;
-    default:
-      getData()
-        .then((photos) => {
-          rendersThumbnails(photos);
-        });
-      break;
-  }
-});
-
-export {filtersBar};
+export {filtersBar, filterButtonClick};
