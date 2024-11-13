@@ -1,6 +1,8 @@
 import {isEscapeKey, setupFormForSubmit} from './utils.js';
 import {pageContent} from './photo-modal.js';
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
 const imageUploadElement = document.querySelector('.img-upload__form');
 setupFormForSubmit(imageUploadElement);
 
@@ -18,6 +20,7 @@ const onDocumentKeydown = (evt) => {
 };
 
 const image = imageUploadElement.querySelector('.img-upload__preview');
+const imageChooser = imageUploadElement.querySelector('#upload-file');
 const sliderElement = document.querySelector('.effect-level__slider');
 noUiSlider.create(sliderElement, {
   range: {
@@ -46,6 +49,17 @@ function closeImageEditor() {
 
   document.removeEventListener('keydown', onDocumentKeydown);
 }
+
+imageChooser.addEventListener('change', () => {
+  const imageFile = imageChooser.files[0];
+  const imageFileName = imageFile.name.toLowerCase();
+
+  const match = FILE_TYPES.some((extension) => imageFileName.endsWith(extension));
+
+  if (match) {
+    image.querySelector('img').src = URL.createObjectURL(imageFile);
+  }
+});
 
 imageUploadElement.addEventListener('change', openImageEditor);
 
