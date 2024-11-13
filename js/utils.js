@@ -69,10 +69,43 @@ const setupFormForSubmit = (form) => {
   form.action = ' https://31.javascript.htmlacademy.pro/kekstagram';
 };
 
+// Функция для удаления всех дочерних элементов по заданному классу
+const removeChildrenByClass = (parent, childrenClass) => {
+  parent
+    .querySelectorAll(childrenClass)
+    .forEach((el) => el.remove());
+};
+
+// Функция для набора случайных изображений в заданном количестве
+const getImagesRandomSet = (arrayPhotos, count = 0) => {
+  const imagesRandomSet = [];
+
+  while (imagesRandomSet.length < count) {
+    const photo = getRandomArrayElement(arrayPhotos);
+
+    if (!imagesRandomSet.some((publishedPhoto) => publishedPhoto.id === photo.id)) {
+      imagesRandomSet.push(photo);
+    }
+  }
+
+  return imagesRandomSet;
+};
+
+// Функция debounce для устранения дребезга от Кекса
+let timeoutId;
+const debounce = (callback, timeoutDelay) =>
+  (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+
 export {getRandomInteger,
   getRandomArrayElement,
   isEscapeKey,
   getParent,
   createCommentTemplate,
   createErrTemplateDataLoad,
-  setupFormForSubmit};
+  setupFormForSubmit,
+  removeChildrenByClass,
+  getImagesRandomSet,
+  debounce};

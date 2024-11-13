@@ -1,4 +1,5 @@
 import {getData} from './api.js';
+import {filtersBar, filterButtonClick} from './thumbnails-filters.js';
 
 const picturesContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture')
@@ -23,6 +24,10 @@ const rendersThumbnails = (arrayPhotos) => {
 };
 
 getData()
-  .then((photos) => rendersThumbnails(photos));
+  .then((photos) => {
+    rendersThumbnails(photos);
+    filtersBar.classList.remove('img-filters--inactive');
+    filterButtonClick(...photos);
+  });
 
-export {picturesContainer};
+export {picturesContainer, rendersThumbnails};
