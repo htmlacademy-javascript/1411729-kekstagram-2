@@ -17,7 +17,7 @@ function checksCountTags (value) {
 }
 
 function checksUniquenessTags (value) {
-  return (new Set(value.split(' '))).size === value.split(' ').length;
+  return (new Set(value.toLowerCase().split(' '))).size === value.split(' ').length;
 }
 
 function checksValidityTag (value) {
