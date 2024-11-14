@@ -28,6 +28,14 @@ noUiSlider.create(sliderElement, {
     max: 1,
   },
   start: 1,
+  format: {
+    to: function (value) {
+      return value;
+    },
+    from: function (value) {
+      return parseFloat(value);
+    },
+  },
 });
 
 const sliderField = imageUploadElement.querySelector('.effect-level');
