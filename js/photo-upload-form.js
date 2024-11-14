@@ -19,7 +19,7 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-const image = imageUploadElement.querySelector('.img-upload__preview');
+const image = imageUploadElement.querySelector('.img-upload__preview').querySelector('img');
 const imageChooser = imageUploadElement.querySelector('#upload-file');
 const sliderElement = document.querySelector('.effect-level__slider');
 noUiSlider.create(sliderElement, {
@@ -46,6 +46,7 @@ function closeImageEditor() {
   sliderField.classList.add('hidden');
   imageUploadElement.reset();
   image.style.filter = 'none';
+  image.style.transform = 'scale(1)';
 
   document.removeEventListener('keydown', onDocumentKeydown);
 }
@@ -57,7 +58,7 @@ imageChooser.addEventListener('change', () => {
   const match = FILE_TYPES.some((extension) => imageFileName.endsWith(extension));
 
   if (match) {
-    image.querySelector('img').src = URL.createObjectURL(imageFile);
+    image.src = URL.createObjectURL(imageFile);
   }
 });
 
