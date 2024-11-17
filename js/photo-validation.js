@@ -12,22 +12,27 @@ const pristine = new Pristine(imageUploadElement, {
 const userImageHashtags = imageUploadElement.querySelector('.text__hashtags');
 const userImageDescription = imageUploadElement.querySelector('.text__description');
 
+const transformTagsSet = (value) => {
+  const transformedTags = value
+    .toLowerCase()
+    .trim()
+    .split(' ')
+    .filter((tag) => tag !== '');
+  return transformedTags;
+};
+
 function checksCountTags (value) {
-  return value.split(' ').length <= 5;
+  return transformTagsSet(value).length <= 5;
 }
 
 function checksUniquenessTags (value) {
-  return (new Set(value.toLowerCase().split(' '))).size === value.split(' ').length;
+  const transformedTags = transformTagsSet(value);
+  return (new Set(transformedTags)).size === transformedTags.length;
 }
 
 function checksValidityTag (value) {
   const hashtagTemplate = /^#[a-zа-яё0-9]{1,19}$/i;
-
-  if (!value) {
-    return true;
-  }
-
-  return value.trim().split(' ').every((tag) => hashtagTemplate.test(tag));
+  return transformTagsSet(value).every((tag) => hashtagTemplate.test(tag));
 }
 
 function checksLengthDescription (value) {
