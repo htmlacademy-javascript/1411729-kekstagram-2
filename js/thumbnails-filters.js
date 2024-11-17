@@ -1,5 +1,5 @@
-import {removeChildrenByClass, getImagesRandomSet, debounce} from './utils.js';
-import {picturesContainer, rendersThumbnails} from './rendering-thumbnails.js';
+import {getImagesRandomSet, debounce} from './utils.js';
+import {rendersThumbnails} from './rendering-thumbnails.js';
 
 const RERENDER_DELAY = 500;
 const filtersBar = document.querySelector('.img-filters');
@@ -15,7 +15,6 @@ const filterButtonClick = (...photos) => {
       }
     });
 
-    removeChildrenByClass(picturesContainer, '.picture');
     let photosCustomSet = [];
 
     switch (evt.target.id) {
