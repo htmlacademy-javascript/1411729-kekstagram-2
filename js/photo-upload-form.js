@@ -27,6 +27,7 @@ const onDocumentKeydown = (evt) => {
 };
 
 const image = imageUploadElement.querySelector('.img-upload__preview').querySelector('img');
+const imageFilterButton = imageUploadElement.querySelectorAll('.effects__preview');
 const imageChooser = imageUploadElement.querySelector('#upload-file');
 const sliderElement = document.querySelector('.effect-level__slider');
 noUiSlider.create(sliderElement, {
@@ -75,6 +76,9 @@ imageChooser.addEventListener('change', () => {
 
   if (match) {
     image.src = URL.createObjectURL(imageFile);
+    imageFilterButton.forEach((button) => {
+      button.style.backgroundImage = `url(${URL.createObjectURL(imageFile)})`;
+    });
   }
 });
 
