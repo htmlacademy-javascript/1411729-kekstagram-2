@@ -9,6 +9,13 @@ setupFormForSubmit(imageUploadElement);
 const imageEditorModal = imageUploadElement.querySelector('.img-upload__overlay');
 const imageEditorCloseButton = imageUploadElement.querySelector('button[type="reset"]');
 
+const pristine = new Pristine(imageUploadElement, {
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextTag: 'div',
+  errorTextClass: 'img-upload__field-wrapper--error'
+});
+
 const onDocumentKeydown = (evt) => {
   if (document.activeElement.name === 'hashtags' ||
     document.activeElement.name === 'description') {
@@ -55,6 +62,7 @@ function closeImageEditor() {
   imageUploadElement.reset();
   image.style.filter = 'none';
   image.style.transform = 'scale(1)';
+  pristine.reset();
 
   document.removeEventListener('keydown', onDocumentKeydown);
 }
@@ -75,6 +83,7 @@ imageUploadElement.addEventListener('change', openImageEditor);
 imageEditorCloseButton.addEventListener('click', closeImageEditor);
 
 export {imageUploadElement,
+  pristine,
   sliderField,
   sliderElement,
   image,
