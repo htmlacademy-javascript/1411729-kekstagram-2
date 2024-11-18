@@ -60,4 +60,6 @@ export{bigPictureContainer,
   renderingBigPicture,
   buttonMoreComments,
   socialCommentsList,
-  comentsShown};
+  comentsShown,
+  bigPictureUrl,
+  bigPictureDescription};
