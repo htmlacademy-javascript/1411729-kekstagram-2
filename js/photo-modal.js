@@ -2,7 +2,9 @@ import {bigPictureContainer,
   renderingBigPicture,
   buttonMoreComments,
   socialCommentsList,
-  comentsShown} from './rendering-photo-fullsize.js';
+  comentsShown,
+  bigPictureUrl,
+  bigPictureDescription} from './rendering-photo-fullsize.js';
 import {picturesContainer} from './rendering-thumbnails.js';
 import {isEscapeKey, getParent} from './utils.js';
 import {getData} from './api.js';
@@ -57,6 +59,8 @@ const openPhotoModal = (evt) => {
 function closePhotoModal () {
   pageContent.classList.remove('modal-open');
   bigPictureContainer.classList.add('hidden');
+  bigPictureUrl.children[0].src = '';
+  bigPictureDescription.textContent = '';
 
   document.removeEventListener('keydown', onDocumentKeydown);
 }

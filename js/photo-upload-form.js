@@ -9,6 +9,13 @@ setupFormForSubmit(imageUploadElement);
 const imageEditorModal = imageUploadElement.querySelector('.img-upload__overlay');
 const imageEditorCloseButton = imageUploadElement.querySelector('button[type="reset"]');
 
+const pristine = new Pristine(imageUploadElement, {
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextTag: 'div',
+  errorTextClass: 'img-upload__field-wrapper--error'
+});
+
 const onDocumentKeydown = (evt) => {
   if (document.activeElement.name === 'hashtags' ||
     document.activeElement.name === 'description') {
@@ -19,7 +26,8 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-const image = imageUploadElement.querySelector('.img-upload__preview');
+const image = imageUploadElement.querySelector('.img-upload__preview').querySelector('img');
+const imageFilterButton = imageUploadElement.querySelectorAll('.effects__preview');
 const imageChooser = imageUploadElement.querySelector('#upload-file');
 const sliderElement = document.querySelector('.effect-level__slider');
 noUiSlider.create(sliderElement, {
@@ -28,6 +36,14 @@ noUiSlider.create(sliderElement, {
     max: 1,
   },
   start: 1,
+  format: {
+    to: function (value) {
+      return value;
+    },
+    from: function (value) {
+      return parseFloat(value);
+    },
+  },
 });
 
 const sliderField = imageUploadElement.querySelector('.effect-level');
@@ -46,6 +62,8 @@ function closeImageEditor() {
   sliderField.classList.add('hidden');
   imageUploadElement.reset();
   image.style.filter = 'none';
+  image.style.transform = 'scale(1)';
+  pristine.reset();
 
   document.removeEventListener('keydown', onDocumentKeydown);
 }
@@ -57,7 +75,10 @@ imageChooser.addEventListener('change', () => {
   const match = FILE_TYPES.some((extension) => imageFileName.endsWith(extension));
 
   if (match) {
-    image.querySelector('img').src = URL.createObjectURL(imageFile);
+    image.src = URL.createObjectURL(imageFile);
+    imageFilterButton.forEach((button) => {
+      button.style.backgroundImage = `url(${URL.createObjectURL(imageFile)})`;
+    });
   }
 });
 
@@ -66,6 +87,7 @@ imageUploadElement.addEventListener('change', openImageEditor);
 imageEditorCloseButton.addEventListener('click', closeImageEditor);
 
 export {imageUploadElement,
+  pristine,
   sliderField,
   sliderElement,
   image,

@@ -1,5 +1,6 @@
 import {getData} from './api.js';
 import {filtersBar, filterButtonClick} from './thumbnails-filters.js';
+import {removeChildrenByClass} from './utils.js';
 
 const picturesContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture')
@@ -20,14 +21,19 @@ const rendersThumbnails = (arrayPhotos) => {
     fragment.appendChild(thumbnail);
   });
 
+  removeChildrenByClass(picturesContainer, '.picture');
   picturesContainer.appendChild(fragment);
 };
 
 getData()
   .then((photos) => {
     rendersThumbnails(photos);
-    filtersBar.classList.remove('img-filters--inactive');
     filterButtonClick(...photos);
+  })
+  .then(() => {
+    if (picturesContainer.contains(document.querySelector('a.picture'))) {
+      filtersBar.classList.remove('img-filters--inactive');
+    }
   });
 
 export {picturesContainer, rendersThumbnails};
