@@ -26,7 +26,7 @@ const rendersThumbnails = (arrayPhotos) => {
 };
 
 getData()
-  .then((photos) => {
+  .then((photos = []) => {
     rendersThumbnails(photos);
     filterButtonClick(...photos);
   })
