@@ -22,7 +22,7 @@ const onDocumentKeydown = (evt) => {
     return evt;
   } else if (isEscapeKey(evt)) {
     evt.preventDefault();
-    onCancelButtonCloseForm();
+    onFormClose();
   }
 };
 
@@ -56,7 +56,7 @@ function onUploadButtonOpenForm() {
   document.addEventListener('keydown', onDocumentKeydown);
 }
 
-function onCancelButtonCloseForm() {
+function onFormClose() {
   pageContent.classList.remove('modal-open');
   imageEditorModal.classList.add('hidden');
   sliderField.classList.add('hidden');
@@ -84,11 +84,11 @@ imageChooser.addEventListener('change', () => {
 
 imageUploadElement.addEventListener('change', onUploadButtonOpenForm);
 
-imageEditorCloseButton.addEventListener('click', onCancelButtonCloseForm);
+imageEditorCloseButton.addEventListener('click', onFormClose);
 
 export {imageUploadElement,
   pristine,
   sliderField,
   sliderElement,
   image,
-  onCancelButtonCloseForm};
+  onFormClose};

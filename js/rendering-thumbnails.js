@@ -1,6 +1,7 @@
 import {getData} from './api.js';
 import {filtersBar, filterButtonClick} from './thumbnails-filters.js';
-import {removeChildrenByClass} from './utils.js';
+import {removeChildrenByClass,
+  createErrTemplateDataLoad} from './utils.js';
 
 const picturesContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture')
@@ -34,6 +35,9 @@ getData()
     if (picturesContainer.contains(document.querySelector('a.picture'))) {
       filtersBar.classList.remove('img-filters--inactive');
     }
+  })
+  .catch(() => {
+    createErrTemplateDataLoad('Не удалось загрузить данные. Попробуйте обновить страницу');
   });
 
 export {picturesContainer, rendersThumbnails};

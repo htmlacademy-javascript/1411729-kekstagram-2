@@ -62,6 +62,17 @@ const createErrTemplateDataLoad = (errorText) => {
   }, 5000);
 };
 
+// Функция создания шаблона сообщения «Ошибки отправки изображения»
+const createErrTemplateDataSend = () => {
+  const errorMessage = document
+    .querySelector('#error')
+    .content
+    .querySelector('.error')
+    .cloneNode(true);
+
+  document.body.appendChild(errorMessage);
+};
+
 // Функция для присваивания нужных значений для атрибутов формы
 const setupFormForSubmit = (form) => {
   form.method = 'POST';
@@ -105,6 +116,7 @@ export {getRandomInteger,
   getParent,
   createCommentTemplate,
   createErrTemplateDataLoad,
+  createErrTemplateDataSend,
   setupFormForSubmit,
   removeChildrenByClass,
   getImagesRandomSet,
