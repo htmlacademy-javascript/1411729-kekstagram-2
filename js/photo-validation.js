@@ -1,4 +1,4 @@
-import {imageUploadElement, closeImageEditor, pristine} from './photo-upload-form.js';
+import {imageUploadElement, onCancelButtonCloseForm, pristine} from './photo-upload-form.js';
 import {createErrTemplateDataLoad} from './utils.js';
 import {sendData} from './api.js';
 
@@ -76,7 +76,7 @@ imageUploadElement.addEventListener('submit', (evt) => {
     blockSubmitButton();
 
     sendData(new FormData(evt.target))
-      .then(closeImageEditor())
+      .then(onCancelButtonCloseForm())
       .catch(
         (err) => {
           createErrTemplateDataLoad(err.message);

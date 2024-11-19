@@ -15,11 +15,11 @@ const pageContent = document.querySelector('body');
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closePhotoModal();
+    onThumbnailCloseModal();
   }
 };
 
-const showsMoreComments = () => {
+const onButtonMoreFiveNewComments = () => {
   const quantityComentsAll = socialCommentsList.childNodes;
   let count = 0;
 
@@ -40,7 +40,7 @@ const showsMoreComments = () => {
   }
 };
 
-const openPhotoModal = (evt) => {
+const onThumbnailOpenModal = (evt) => {
   if (evt.target.matches('[class*=\'picture\']:not(.pictures)')) {
     evt.preventDefault();
     pageContent.classList.add('modal-open');
@@ -50,13 +50,13 @@ const openPhotoModal = (evt) => {
       .then((photos) => renderingBigPicture(getParent(evt.target).firstElementChild, photos));
 
     if (!buttonMoreComments.classList.contains('hidden')) {
-      buttonMoreComments.addEventListener('click', showsMoreComments);
+      buttonMoreComments.addEventListener('click', onButtonMoreFiveNewComments);
     }
     document.addEventListener('keydown', onDocumentKeydown);
   }
 };
 
-function closePhotoModal () {
+function onThumbnailCloseModal () {
   pageContent.classList.remove('modal-open');
   bigPictureContainer.classList.add('hidden');
   bigPictureUrl.children[0].src = '';
@@ -65,8 +65,8 @@ function closePhotoModal () {
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
-picturesContainer.addEventListener('click', openPhotoModal);
+picturesContainer.addEventListener('click', onThumbnailOpenModal);
 
-bigPictureCloseButton.addEventListener('click', closePhotoModal);
+bigPictureCloseButton.addEventListener('click', onThumbnailCloseModal);
 
 export {pageContent};
