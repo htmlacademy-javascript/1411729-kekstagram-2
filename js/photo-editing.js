@@ -8,7 +8,7 @@ const imageScaleSmaller = imageUploadElement.querySelector('.scale__control--sma
 const imageScaleBigger = imageUploadElement.querySelector('.scale__control--bigger');
 const imageScaleValue = imageUploadElement.querySelector('.scale__control--value');
 
-const zoomOut = () => {
+const onButtonZoomOut = () => {
   const scaleValueNumbers = Number(imageScaleValue.value.slice(0, -1));
 
   if (scaleValueNumbers > 25) {
@@ -18,7 +18,7 @@ const zoomOut = () => {
   }
 };
 
-const zoomIn = () => {
+const onButtonZoomIn = () => {
   const scaleValueNumbers = Number(imageScaleValue.value.slice(0, -1));
 
   if (scaleValueNumbers < 100) {
@@ -28,15 +28,15 @@ const zoomIn = () => {
   }
 };
 
-imageScaleSmaller.addEventListener('click', zoomOut);
+imageScaleSmaller.addEventListener('click', onButtonZoomOut);
 
-imageScaleBigger.addEventListener('click', zoomIn);
+imageScaleBigger.addEventListener('click', onButtonZoomIn);
 
 // Наложение эффекта на изображение
 const effects = imageUploadElement.querySelector('.effects__list');
 const effectLevelValue = imageUploadElement.querySelector('.effect-level__value');
 
-const togglesImageEffects = (evt) => {
+const onEffectButtonChanging = (evt) => {
   if (evt.target.id === 'effect-none') {
     sliderField.classList.add('hidden');
   } else {
@@ -120,7 +120,7 @@ const togglesImageEffects = (evt) => {
   }
 };
 
-effects.addEventListener('click', togglesImageEffects);
+effects.addEventListener('click', onEffectButtonChanging);
 
 sliderElement.noUiSlider.on('update', () => {
   const effectName = effects.querySelector(':checked').id;

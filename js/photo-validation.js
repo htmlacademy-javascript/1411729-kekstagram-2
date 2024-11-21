@@ -1,5 +1,7 @@
-import {imageUploadElement, closeImageEditor, pristine} from './photo-upload-form.js';
-import {createErrTemplateDataLoad} from './utils.js';
+import {imageUploadElement,
+  onFormClose,
+  pristine} from './photo-upload-form.js';
+import {createMessageTemplateDataSend} from './utils.js';
 import {sendData} from './api.js';
 
 const userImageHashtags = imageUploadElement.querySelector('.text__hashtags');
@@ -76,10 +78,14 @@ imageUploadElement.addEventListener('submit', (evt) => {
     blockSubmitButton();
 
     sendData(new FormData(evt.target))
-      .then(closeImageEditor())
+      .then(
+        () => {
+          onFormClose();
+          createMessageTemplateDataSend('success');
+        })
       .catch(
-        (err) => {
-          createErrTemplateDataLoad(err.message);
+        () => {
+          createMessageTemplateDataSend('error');
         }
       )
       .finally(unblockSubmitButton);

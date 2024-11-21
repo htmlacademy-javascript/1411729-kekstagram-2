@@ -62,6 +62,45 @@ const createErrTemplateDataLoad = (errorText) => {
   }, 5000);
 };
 
+// Функции создания шаблона сообщения и его закрытия при отправке формы
+const removeMessageListener = (resultSending) => {
+  const messageModal = document.querySelector(`.${resultSending}`);
+
+  messageModal.remove();
+  document.removeEventListener('keydown', onDocumentKeydown);
+};
+
+function onAnyNotMessageClose (resultSending) {
+  return function handleClick (evt) {
+    if (evt.target.className === resultSending ||
+      evt.target.className === `${resultSending}__button`
+    ) {
+      removeMessageListener(resultSending);
+    }
+  };
+}
+
+function onDocumentKeydown (evt) {
+  removeMessageListener('success');
+  return evt;
+}
+
+const createMessageTemplateDataSend = (resultSending) => {
+  const messageModal = document
+    .querySelector(`#${resultSending}`)
+    .content
+    .querySelector(`.${resultSending}`)
+    .cloneNode(true);
+
+  document.body.appendChild(messageModal);
+
+  messageModal.addEventListener('click', onAnyNotMessageClose(resultSending));
+
+  if (resultSending === 'success') {
+    document.addEventListener('keydown', onDocumentKeydown);
+  }
+};
+
 // Функция для присваивания нужных значений для атрибутов формы
 const setupFormForSubmit = (form) => {
   form.method = 'POST';
@@ -105,6 +144,7 @@ export {getRandomInteger,
   getParent,
   createCommentTemplate,
   createErrTemplateDataLoad,
+  createMessageTemplateDataSend,
   setupFormForSubmit,
   removeChildrenByClass,
   getImagesRandomSet,

@@ -17,18 +17,23 @@ const pristine = new Pristine(imageUploadElement, {
 });
 
 const onDocumentKeydown = (evt) => {
+  if (document.querySelector('.error')) {
+    document.querySelector('.error').remove();
+    return evt;
+  }
   if (document.activeElement.name === 'hashtags' ||
     document.activeElement.name === 'description') {
     return evt;
   } else if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeImageEditor();
+    onFormClose();
   }
 };
 
 const image = imageUploadElement.querySelector('.img-upload__preview').querySelector('img');
-const imageFilterButton = imageUploadElement.querySelectorAll('.effects__preview');
+const buttonsFilterSwitching = imageUploadElement.querySelectorAll('.effects__preview');
 const imageChooser = imageUploadElement.querySelector('#upload-file');
+
 const sliderElement = document.querySelector('.effect-level__slider');
 noUiSlider.create(sliderElement, {
   range: {
@@ -45,18 +50,17 @@ noUiSlider.create(sliderElement, {
     },
   },
 });
-
 const sliderField = imageUploadElement.querySelector('.effect-level');
 sliderField.classList.add('hidden');
 
-function openImageEditor() {
+function onUploadButtonOpenForm() {
   pageContent.classList.add('modal-open');
   imageEditorModal.classList.remove('hidden');
 
   document.addEventListener('keydown', onDocumentKeydown);
 }
 
-function closeImageEditor() {
+function onFormClose() {
   pageContent.classList.remove('modal-open');
   imageEditorModal.classList.add('hidden');
   sliderField.classList.add('hidden');
@@ -76,19 +80,19 @@ imageChooser.addEventListener('change', () => {
 
   if (match) {
     image.src = URL.createObjectURL(imageFile);
-    imageFilterButton.forEach((button) => {
+    buttonsFilterSwitching.forEach((button) => {
       button.style.backgroundImage = `url(${URL.createObjectURL(imageFile)})`;
     });
   }
 });
 
-imageUploadElement.addEventListener('change', openImageEditor);
+imageUploadElement.addEventListener('change', onUploadButtonOpenForm);
 
-imageEditorCloseButton.addEventListener('click', closeImageEditor);
+imageEditorCloseButton.addEventListener('click', onFormClose);
 
 export {imageUploadElement,
   pristine,
   sliderField,
   sliderElement,
   image,
-  closeImageEditor};
+  onFormClose};
