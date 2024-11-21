@@ -17,6 +17,10 @@ const pristine = new Pristine(imageUploadElement, {
 });
 
 const onDocumentKeydown = (evt) => {
+  if (document.querySelector('.error')) {
+    document.querySelector('.error').remove();
+    return evt;
+  }
   if (document.activeElement.name === 'hashtags' ||
     document.activeElement.name === 'description') {
     return evt;
@@ -29,6 +33,7 @@ const onDocumentKeydown = (evt) => {
 const image = imageUploadElement.querySelector('.img-upload__preview').querySelector('img');
 const buttonsFilterSwitching = imageUploadElement.querySelectorAll('.effects__preview');
 const imageChooser = imageUploadElement.querySelector('#upload-file');
+
 const sliderElement = document.querySelector('.effect-level__slider');
 noUiSlider.create(sliderElement, {
   range: {
@@ -45,7 +50,6 @@ noUiSlider.create(sliderElement, {
     },
   },
 });
-
 const sliderField = imageUploadElement.querySelector('.effect-level');
 sliderField.classList.add('hidden');
 
